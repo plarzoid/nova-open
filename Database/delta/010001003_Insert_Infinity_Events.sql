@@ -1,0 +1,17 @@
+
+-- Insert the new infinity events
+INSERT INTO EVENT
+	(NAME, DESCRIPTION, TYPE_ID, GAME_SYSTEM_ID, NOVA_YEAR, EVENT_START, EVENT_END, IS_UNIQUE, IS_WEEKEND_BADGE_REQ, PRICE, AVAILABLE_QTY, NOTE, LAST_MODIFIED_BY, LAST_MODIFIED_DATE, CREATED_BY, CREATED_DATE)
+VALUES 
+	('Infinity Hunger Games #1',NULL,2,3,2013,'2013-08-30 00:00:00','2013-08-30 00:00:00',1,1,10,NULL,NULL,USER(),SYSDATE(),USER(),SYSDATE()),
+	('Infinity Main ITS Tournament',NULL,2,3,2013,'2013-08-31 00:00:00','2013-08-31 00:00:00',1,1,30,32,NULL,USER(),SYSDATE(),USER(),SYSDATE()),
+	('Infinity Hunger Games #2',NULL,2,3,2013,'2013-08-31 00:00:00','2013-08-31 00:00:00',1,1,10,NULL,NULL,USER(),SYSDATE(),USER(),SYSDATE()),
+	('Infinity Team Tournament',NULL,2,3,2013,'2013-09-01 00:00:00','2013-09-01 00:00:00',1,1,15,NULL,NULL,USER(),SYSDATE(),USER(),SYSDATE()),
+	('Infinity Weekend Pass','(Counts as following discounts: $35 (badge), $10 (Deathmatch), $30 (5-Round GT), $10 (Unique deathmatch), $15 (Fusion), $5 (Capital Palette entry)) ~ Total value $105',7,NULL,2013,NULL,NULL,1,1,-20,NULL,NULL,USER(),SYSDATE(),USER(),SYSDATE())
+;
+
+INSERT INTO CHANGELOG
+	(SCRIPT, RUN_DATE)
+VALUES
+	('010001003_Insert_Infinity_Events.sql',NOW())
+;

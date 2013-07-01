@@ -1,0 +1,22 @@
+/*
+-- Insert new event type "Pass" and update events accordingly
+
+-- Date: 2013-04-09 22:32
+*/
+
+INSERT INTO LT_EVENT_TYPE (ID, NAME, DESCRIPTION) VALUES (8,'Pass','All weekend badges');
+
+UPDATE EVENT SET TYPE_ID = 8 WHERE ID = 1;
+UPDATE EVENT SET TYPE_ID = 8 WHERE ID = 2;
+UPDATE EVENT SET TYPE_ID = 8 WHERE ID = 3;
+UPDATE EVENT SET TYPE_ID = 8 WHERE ID = 4;
+UPDATE EVENT SET TYPE_ID = 8 WHERE ID = 61;
+UPDATE EVENT SET TYPE_ID = 8 WHERE ID = 62;
+
+
+
+INSERT INTO CHANGELOG
+	(SCRIPT, RUN_DATE)
+VALUES
+	('010001011_update_event_type_to_pass.sql',NOW())
+;
