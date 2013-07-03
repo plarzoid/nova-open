@@ -1,4 +1,4 @@
-DATABASE PREREQUISITES
+﻿DATABASE PREREQUISITES
 You will need full control of a mySQL database instance of your preferred name. The recommended database name is "nova_open".
 
 DATABASE SETUP
