@@ -4,6 +4,7 @@
 error_reporting(E_ERROR & ~E_NOTICE);
 
 //Test Zone
+
 //END Test Zone
 
 /*************************************************
@@ -55,6 +56,9 @@ if(!is_writable($class_dir)){
     return;
 }
 
+echo "Command: $inputs[0]\n";
+echo "Time: ".date("Y-m-d H:i:s")."\n\n";
+
 echo "Opening files...\n";
 
 
@@ -81,13 +85,13 @@ if(is_numeric(strpos(strToLower($line), 'create table'))){
 	$matches=array();
 	preg_match("~\s([^\s]+)\s?\(~", $line, $matches);
 
-	$table_name = strToLower(end($matches));
-	$proper_table_name = ucfirst($table_name);;
+	$table_name = end($matches);
+	$table_Fn_name = ucfirst(strToLower($table_name));
 
 	echo "\n======================================================================\n";
 	echo "\n";
 	echo "Found Table: '$table_name'\n";
-	echo "Proper Table name: '$proper_table_name'\n";
+	echo "Proper Table name: '$table_Fn_name'\n";
 
 	//create the empty columns array
 	$columns = array();
@@ -105,14 +109,14 @@ Get the columns of the table
 
 ************************************************/
 if($table_opened && 
-	(strpos($line, "(") == false) && (strpos($line, ")") == false) && 
-	(strpos(strToLower($line), "constraint") == false)){
-
+	(!is_numeric(strpos(strToLower($line), 'create table'))) && 
+	(!is_numeric(strpos(strToLower($line), 'constraint'))) &&
+	(!is_numeric(strpos(strToLower($line), 'references')))){
 	$column_parts = explode(" ", $line);
 	if(count($column_parts) > 1){
 		$name = trim($column_parts[0]);
 		$varname = "\$".strToLower($name);
-		$type = $column_parts[1];
+		$type = trim($column_parts[1]);
 		$column_entry = array("name"=>$name, "varname"=>$varname, "type"=>$type);
 
 		if(preg_match("~int~", strtolower($type))){
@@ -172,12 +176,13 @@ Detect end of table, write file
 if($table_opened && preg_match("~\);~", $line)){
 
     //Create and open the file
-	$class_fptr = fopen($class_dir.$table_name.".php", 'w');
+	$file = $class_dir.strtoLower($table_name).".php";
+	$class_fptr = fopen($file, 'w');
 
 	//check for successful open
-	if($class_fptr == false){echo "Failed to open file!"; return;}
+	if($class_fptr == false){echo "Failed to open file: $file!"; return;}
 
-	echo "\nOpening file: ".$classes_dir.$table_name.".php\n";
+	echo "\nOpening file: $file\n";
 
 /************************************************
 
@@ -207,16 +212,23 @@ $class_header= '<?php
 
 /**************************************************
 *
-*	'.$proper_table_name.' Class
+*	'.$table_Fn_name.' Class
 *
 ***************************************************/
 
 require_once("query.php");
 
-class '.$proper_table_name.' {
+class '.$table_Fn_name.' {
 
 var $query=NULL;
 var $table="'.$table_name.'";
+
+
+/***************************************************
+
+Constructor & Destructor
+
+***************************************************/
 
 public function __construct(){
 	$this->query = new Query();
@@ -233,7 +245,15 @@ fputs($class_fptr, $class_header);
 /***************************
 * Write the create function
 ***************************/
-$createFn = "public function create$proper_table_name(";
+$createFn = '
+/**************************************************
+
+Create Function
+
+**************************************************/
+';
+
+$createFn.= "public function create$table_Fn_name(";
 
 foreach($columns as $k=>$c){
 	if(!$c[primary_key]){
@@ -246,10 +266,10 @@ $createFn.="){\n";
 $createFn.="\n\t//Validate the inputs\n";
 
 foreach($columns as $c){
-	 if(!$c[primary_key]){$createFn.="\t".$c[validateFn]."\n";}
+	 if(!$c[primary_key] && (strlen($c[validateFn]) > 0)){$createFn.="\t".$c[validateFn]."\n";}
 }
 
-$createFn.="\n\n";
+$createFn.="\n";
 
 $createFn.="\t\$sql = \"INSERT INTO \$this->table (";
 foreach($columns as $k=>$c){
@@ -281,8 +301,14 @@ fputs($class_fptr, $createFn);
 /**************************
 * Delete function
 **************************/
-$deleteFn = "";
-$deleteFn.= "public function delete".$proper_table_name."(".$primary_key[varname]."){\n";
+$deleteFn = '
+/**************************************************
+
+Delete Function
+
+**************************************************/
+';
+$deleteFn.= "public function delete".$table_Fn_name."(".$primary_key[varname]."){\n";
 $deleteFn.= "\tif(!is_int(".$primary_key[varname].")){return false;}\n\n";
 $deleteFn.= "\t\$sql = \"DELETE FROM \$this->table WHERE ".$primary_key[name]."=".$primary_key[varname]."\";\n\n";
 $deleteFn.= "\treturn \$this->query->update(\$sql);\n";
@@ -294,22 +320,31 @@ fputs($class_fptr, $deleteFn);
 /**************************
 * Individual 'getBy' functions
 **************************/
+$columnFnHeader = '
+/**************************************************
+
+Query By Column Function(s)
+
+**************************************************/
+';
+fputs($class_fptr, $columnFnHeader);
+
 foreach($columns as $column){
 	$columnFn="";
-	$columnFn.= "public function get".$proper_table_name."By".$column[function_name]."($column[varname]){\n";
-	$columnFn.= "\t".$column[validateFn]."\n\n";
+	$columnFn.= "public function get".$table_Fn_name."By".$column[function_name]."($column[varname]){\n";
+	if(strlen($column[validateFn])){$columnFn.= "\t".$column[validateFn]."\n\n";}
 	$columnFn.= "\t\$sql = \"SELECT * FROM \$this->table WHERE ".$column[name]."=".$column[varname]."\";\n\n";
 	$columnFn.= "\treturn \$this->query->query(\$sql);\n";
 	$columnFn.= "}\n\n";
 
-	echo "Writing column function for ".$column[name]."...\n";
+	echo "Writing query by column function for ".$column[name]."...\n";
 	fputs($class_fptr, $columnFn);
 }
 
 /**************************
 *  Write the class footer
 **************************/
-$class_footer= "}//close class\n?>\n";
+$class_footer= "}//close class\n\n"."?".">\n";//break this up so we can keep syntax highlighting working in vim...
 
 echo "Writing class footer...\n";
 fputs($class_fptr, $class_footer);
