@@ -110,9 +110,10 @@ Get the columns of the table
 ************************************************/
 if($table_opened && 
 	(!is_numeric(strpos(strToLower($line), 'create table'))) && 
-	(!is_numeric(strpos(strToLower($line), 'constraint'))) &&
-	(!is_numeric(strpos(strToLower($line), 'references')))){
-	$column_parts = explode(" ", $line);
+	(!is_numeric(strpos(strToLower($line), 'primary key'))) &&
+	(!is_numeric(strpos(strToLower($line), 'foreign key'))) && 
+	(!is_numeric(strpos(strToLower($line), 'key fk')))){
+	$column_parts = explode(" ", trim($line));
 	if(count($column_parts) > 1){
 		$name = trim($column_parts[0]);
 		$varname = "\$".strToLower($name);
@@ -140,30 +141,21 @@ Get the keys
 
 ************************************************/
 
-if($table_opened && is_numeric(strpos(strToLower($line),'constraint'))){
+if($table_opened && is_numeric(strpos(strToLower($line),'primary key'))){
 
-	$matches=array();
-	$key_detection_pattern="~constraint ([^\s]+) (primary|foreign) key (references )?\(([^\s]+)\)~";
+	$key_detection_pattern="~primary key \(([^\s]+)\)~";
 	preg_match($key_detection_pattern, strToLower($line), $matches);
 
-	if(!strcmp($matches[2], "primary")){
+	$keys["primary"] = strToUpper(end($matches));
 
-		$keys["primary"] = strToUpper(end($matches));
-
-		foreach($columns as $key=>$column_array){
-			if(!strcmp($columns[$key]["name"], $keys["primary"])){
-				$columns[$key]["primary_key"]=true;
-				$primary_key = array("name"=>$columns[$key][name], "varname"=>$columns[$key][varname]);
-				echo "Found Primary Key: ".$keys["primary"]."\n";
-			}
+	foreach($columns as $key=>$column_array){
+		if(!strcmp($columns[$key]["name"], $keys["primary"])){
+			$columns[$key]["primary_key"]=true;
+			$primary_key = array("name"=>$columns[$key][name], "varname"=>$columns[$key][varname]);
+			echo "Found Primary Key: ".$keys["primary"]."\n";
 		}
 	}
 
-	if(!strcmp($matches[2], "foreign")){
-		$keys["foreign"][] = strToUpper(end($matches));
-		echo "Found Foreign Key: ".end($keys["foreign"])."\n";
-	}
-	
 }
 
 

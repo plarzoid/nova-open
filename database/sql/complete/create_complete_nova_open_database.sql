@@ -69,6 +69,7 @@ DROP TABLE IF EXISTS `appearance_score`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `appearance_score` (
   `ID` int(11) NOT NULL,
+  `EVENT_ID` int(11) NOT NULL,
   `ENTRY_ID` int(11) NOT NULL,
   `JUDGE_ID` int(11) NOT NULL,
   `BASE_SCORE` int(11) NOT NULL,
