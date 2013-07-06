@@ -84,7 +84,7 @@ public function getTeamByEventId($event_id){
 public function getTeamByName($name){
 	if(is_string($name)){if(strlen($name) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE NAME=$name";
+	$sql = "SELECT * FROM $this->table WHERE NAME='$name'";
 
 	return $this->query->query($sql);
 }
@@ -92,7 +92,7 @@ public function getTeamByName($name){
 public function getTeamByLastModifiedBy($last_modified_by){
 	if(is_string($last_modified_by)){if(strlen($last_modified_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY=$last_modified_by";
+	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY='$last_modified_by'";
 
 	return $this->query->query($sql);
 }
@@ -106,7 +106,7 @@ public function getTeamByLastModifiedDate($last_modified_date){
 public function getTeamByCreatedBy($created_by){
 	if(is_string($created_by)){if(strlen($created_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE CREATED_BY=$created_by";
+	$sql = "SELECT * FROM $this->table WHERE CREATED_BY='$created_by'";
 
 	return $this->query->query($sql);
 }

@@ -78,7 +78,7 @@ public function getEvent_materialById($id){
 public function getEvent_materialByName($name){
 	if(is_string($name)){if(strlen($name) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE NAME=$name";
+	$sql = "SELECT * FROM $this->table WHERE NAME='$name'";
 
 	return $this->query->query($sql);
 }
@@ -86,7 +86,7 @@ public function getEvent_materialByName($name){
 public function getEvent_materialByDescription($description){
 	if(is_string($description)){if(strlen($description) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE DESCRIPTION=$description";
+	$sql = "SELECT * FROM $this->table WHERE DESCRIPTION='$description'";
 
 	return $this->query->query($sql);
 }
@@ -110,7 +110,7 @@ public function getEvent_materialByEventId($event_id){
 public function getEvent_materialByLastModifiedBy($last_modified_by){
 	if(is_string($last_modified_by)){if(strlen($last_modified_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY=$last_modified_by";
+	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY='$last_modified_by'";
 
 	return $this->query->query($sql);
 }
@@ -124,7 +124,7 @@ public function getEvent_materialByLastModifiedDate($last_modified_date){
 public function getEvent_materialByCreatedBy($created_by){
 	if(is_string($created_by)){if(strlen($created_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE CREATED_BY=$created_by";
+	$sql = "SELECT * FROM $this->table WHERE CREATED_BY='$created_by'";
 
 	return $this->query->query($sql);
 }

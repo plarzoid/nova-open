@@ -101,7 +101,7 @@ public function getX_club_personByIsLead($is_lead){
 public function getX_club_personByLastModifiedBy($last_modified_by){
 	if(is_string($last_modified_by)){if(strlen($last_modified_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY=$last_modified_by";
+	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY='$last_modified_by'";
 
 	return $this->query->query($sql);
 }
@@ -115,7 +115,7 @@ public function getX_club_personByLastModifiedDate($last_modified_date){
 public function getX_club_personByCreatedBy($created_by){
 	if(is_string($created_by)){if(strlen($created_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE CREATED_BY=$created_by";
+	$sql = "SELECT * FROM $this->table WHERE CREATED_BY='$created_by'";
 
 	return $this->query->query($sql);
 }

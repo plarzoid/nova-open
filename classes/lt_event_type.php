@@ -74,7 +74,7 @@ public function getLt_event_typeById($id){
 public function getLt_event_typeByName($name){
 	if(is_string($name)){if(strlen($name) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE NAME=$name";
+	$sql = "SELECT * FROM $this->table WHERE NAME='$name'";
 
 	return $this->query->query($sql);
 }
@@ -82,7 +82,7 @@ public function getLt_event_typeByName($name){
 public function getLt_event_typeByDescription($description){
 	if(is_string($description)){if(strlen($description) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE DESCRIPTION=$description";
+	$sql = "SELECT * FROM $this->table WHERE DESCRIPTION='$description'";
 
 	return $this->query->query($sql);
 }

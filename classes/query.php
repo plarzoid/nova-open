@@ -12,7 +12,7 @@ var $mysql_user="novaopen";
 var $mysql_host="localhost";
 var $mysql_password="c0nv3nt!0n";
 
-var $mysql_database="NoVaOpen";
+var $mysql_database="nova_open";
 
 var $connection=NULL;//database connection object
 
@@ -22,7 +22,7 @@ var $connection=NULL;//database connection object
 public function __construct(){
 
 	//build the failure message wile it's convenient
-	$die_str = "MySQL connection failed!<br/>'$this->mysql_host'@'$this->mysql_user', '$this->mysql_password'";
+	$die_str = "MySQL connection failed!<br/>'$this->mysql_user'@'$this->mysql_host', '$this->mysql_password'";
 
 	//attempt to establish the connection
 	$this->connection = mysql_connect($this->mysql_host, $this->mysql_user, $this->mysql_password) or die($die_str);

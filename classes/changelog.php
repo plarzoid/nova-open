@@ -73,7 +73,7 @@ public function getChangelogById($id){
 public function getChangelogByScript($script){
 	if(is_string($script)){if(strlen($script) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE SCRIPT=$script";
+	$sql = "SELECT * FROM $this->table WHERE SCRIPT='$script'";
 
 	return $this->query->query($sql);
 }

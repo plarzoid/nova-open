@@ -74,7 +74,7 @@ public function getPropertiesById($id){
 public function getPropertiesByPropertyName($property_name){
 	if(is_string($property_name)){if(strlen($property_name) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE PROPERTY_NAME=$property_name";
+	$sql = "SELECT * FROM $this->table WHERE PROPERTY_NAME='$property_name'";
 
 	return $this->query->query($sql);
 }
@@ -82,7 +82,7 @@ public function getPropertiesByPropertyName($property_name){
 public function getPropertiesByPropertyValue($property_value){
 	if(is_string($property_value)){if(strlen($property_value) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE PROPERTY_VALUE=$property_value";
+	$sql = "SELECT * FROM $this->table WHERE PROPERTY_VALUE='$property_value'";
 
 	return $this->query->query($sql);
 }

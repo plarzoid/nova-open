@@ -102,7 +102,7 @@ public function getEvent_matchByEventRoundId($event_round_id){
 public function getEvent_matchByResultCd($result_cd){
 	if(is_string($result_cd)){if(strlen($result_cd) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE RESULT_CD=$result_cd";
+	$sql = "SELECT * FROM $this->table WHERE RESULT_CD='$result_cd'";
 
 	return $this->query->query($sql);
 }
@@ -110,7 +110,7 @@ public function getEvent_matchByResultCd($result_cd){
 public function getEvent_matchByLastModifiedBy($last_modified_by){
 	if(is_string($last_modified_by)){if(strlen($last_modified_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY=$last_modified_by";
+	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY='$last_modified_by'";
 
 	return $this->query->query($sql);
 }
@@ -124,7 +124,7 @@ public function getEvent_matchByLastModifiedDate($last_modified_date){
 public function getEvent_matchByCreatedBy($created_by){
 	if(is_string($created_by)){if(strlen($created_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE CREATED_BY=$created_by";
+	$sql = "SELECT * FROM $this->table WHERE CREATED_BY='$created_by'";
 
 	return $this->query->query($sql);
 }

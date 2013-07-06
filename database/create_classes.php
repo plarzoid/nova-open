@@ -325,7 +325,13 @@ foreach($columns as $column){
 	$columnFn="";
 	$columnFn.= "public function get".$table_Fn_name."By".$column[function_name]."($column[varname]){\n";
 	if(strlen($column[validateFn])){$columnFn.= "\t".$column[validateFn]."\n\n";}
-	$columnFn.= "\t\$sql = \"SELECT * FROM \$this->table WHERE ".$column[name]."=".$column[varname]."\";\n\n";
+	$columnFn.= "\t\$sql = \"SELECT * FROM \$this->table WHERE ".$column[name]."=";
+	
+	if(preg_match("~varchar~", strToLower($column[type]))){
+		$columnFn.= "'".$column[varname]."'\";\n\n";
+	} else {
+		$columnFn.= $column[varname]."\";\n\n";
+	}
 	$columnFn.= "\treturn \$this->query->query(\$sql);\n";
 	$columnFn.= "}\n\n";
 

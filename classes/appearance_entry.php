@@ -98,7 +98,7 @@ public function getAppearance_entryByEventId($event_id){
 public function getAppearance_entryByLabel($label){
 	if(is_string($label)){if(strlen($label) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE LABEL=$label";
+	$sql = "SELECT * FROM $this->table WHERE LABEL='$label'";
 
 	return $this->query->query($sql);
 }
@@ -106,7 +106,7 @@ public function getAppearance_entryByLabel($label){
 public function getAppearance_entryByDescription($description){
 	if(is_string($description)){if(strlen($description) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE DESCRIPTION=$description";
+	$sql = "SELECT * FROM $this->table WHERE DESCRIPTION='$description'";
 
 	return $this->query->query($sql);
 }
@@ -138,7 +138,7 @@ public function getAppearance_entryByArmyFactionId($army_faction_id){
 public function getAppearance_entryByNote($note){
 	if(is_string($note)){if(strlen($note) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE NOTE=$note";
+	$sql = "SELECT * FROM $this->table WHERE NOTE='$note'";
 
 	return $this->query->query($sql);
 }
@@ -146,7 +146,7 @@ public function getAppearance_entryByNote($note){
 public function getAppearance_entryByLastModifiedBy($last_modified_by){
 	if(is_string($last_modified_by)){if(strlen($last_modified_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY=$last_modified_by";
+	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY='$last_modified_by'";
 
 	return $this->query->query($sql);
 }
@@ -160,7 +160,7 @@ public function getAppearance_entryByLastModifiedDate($last_modified_date){
 public function getAppearance_entryByCreatedBy($created_by){
 	if(is_string($created_by)){if(strlen($created_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE CREATED_BY=$created_by";
+	$sql = "SELECT * FROM $this->table WHERE CREATED_BY='$created_by'";
 
 	return $this->query->query($sql);
 }

@@ -74,7 +74,7 @@ public function getLt_account_statusById($id){
 public function getLt_account_statusByLabel($label){
 	if(is_string($label)){if(strlen($label) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE LABEL=$label";
+	$sql = "SELECT * FROM $this->table WHERE LABEL='$label'";
 
 	return $this->query->query($sql);
 }
@@ -82,7 +82,7 @@ public function getLt_account_statusByLabel($label){
 public function getLt_account_statusByDescription($description){
 	if(is_string($description)){if(strlen($description) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE DESCRIPTION=$description";
+	$sql = "SELECT * FROM $this->table WHERE DESCRIPTION='$description'";
 
 	return $this->query->query($sql);
 }

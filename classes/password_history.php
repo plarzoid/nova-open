@@ -90,7 +90,7 @@ public function getPassword_historyByChangedDate($changed_date){
 public function getPassword_historyByPasswordValue($password_value){
 	if(is_string($password_value)){if(strlen($password_value) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE PASSWORD_VALUE=$password_value";
+	$sql = "SELECT * FROM $this->table WHERE PASSWORD_VALUE='$password_value'";
 
 	return $this->query->query($sql);
 }
@@ -98,7 +98,7 @@ public function getPassword_historyByPasswordValue($password_value){
 public function getPassword_historyByLastModifiedBy($last_modified_by){
 	if(is_string($last_modified_by)){if(strlen($last_modified_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY=$last_modified_by";
+	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY='$last_modified_by'";
 
 	return $this->query->query($sql);
 }
@@ -112,7 +112,7 @@ public function getPassword_historyByLastModifiedDate($last_modified_date){
 public function getPassword_historyByCreatedBy($created_by){
 	if(is_string($created_by)){if(strlen($created_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE CREATED_BY=$created_by";
+	$sql = "SELECT * FROM $this->table WHERE CREATED_BY='$created_by'";
 
 	return $this->query->query($sql);
 }

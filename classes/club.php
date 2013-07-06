@@ -78,7 +78,7 @@ public function getClubById($id){
 public function getClubByName($name){
 	if(is_string($name)){if(strlen($name) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE NAME=$name";
+	$sql = "SELECT * FROM $this->table WHERE NAME='$name'";
 
 	return $this->query->query($sql);
 }
@@ -86,7 +86,7 @@ public function getClubByName($name){
 public function getClubByDescription($description){
 	if(is_string($description)){if(strlen($description) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE DESCRIPTION=$description";
+	$sql = "SELECT * FROM $this->table WHERE DESCRIPTION='$description'";
 
 	return $this->query->query($sql);
 }
@@ -94,7 +94,7 @@ public function getClubByDescription($description){
 public function getClubByEmail($email){
 	if(is_string($email)){if(strlen($email) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE EMAIL=$email";
+	$sql = "SELECT * FROM $this->table WHERE EMAIL='$email'";
 
 	return $this->query->query($sql);
 }
@@ -102,7 +102,7 @@ public function getClubByEmail($email){
 public function getClubByWebsiteUrl($website_url){
 	if(is_string($website_url)){if(strlen($website_url) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE WEBSITE_URL=$website_url";
+	$sql = "SELECT * FROM $this->table WHERE WEBSITE_URL='$website_url'";
 
 	return $this->query->query($sql);
 }
@@ -110,7 +110,7 @@ public function getClubByWebsiteUrl($website_url){
 public function getClubByLastModifiedBy($last_modified_by){
 	if(is_string($last_modified_by)){if(strlen($last_modified_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY=$last_modified_by";
+	$sql = "SELECT * FROM $this->table WHERE LAST_MODIFIED_BY='$last_modified_by'";
 
 	return $this->query->query($sql);
 }
@@ -124,7 +124,7 @@ public function getClubByLastModifiedDate($last_modified_date){
 public function getClubByCreatedBy($created_by){
 	if(is_string($created_by)){if(strlen($created_by) == 0){return false;}} else {return false;}
 
-	$sql = "SELECT * FROM $this->table WHERE CREATED_BY=$created_by";
+	$sql = "SELECT * FROM $this->table WHERE CREATED_BY='$created_by'";
 
 	return $this->query->query($sql);
 }

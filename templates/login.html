@@ -1,8 +1,11 @@
 <form method="<?=$form_method?>" action="<?=$form_action?>">
 <table width="80%" align="center">
 	<tr><td colspan=2 align="center">
-		<h1 class="warning">Welcome!</h1><br/><h3 class="warning">Please log in to continue...</h3>
+		<h1>Welcome!</h1><br/><h3>Please log in to continue...</h3>
 	</td></tr>
+	<?if(!empty($errors)){?>
+		<tr><td colspan=2 align="center"><font class="warning"><?=$errors[general]?></font></td></tr>
+	<?}?>
 	<tr><td class="right">
 			<label for="username">Username</label>
 		</td><td class="left">
