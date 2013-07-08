@@ -12,6 +12,8 @@
 //utilize the Page's root
 require_once($page->getClassRoot()."users.php");
 require_once($page->getClassRoot()."password_history.php");
+require_once($page->getClassRoot()."x_users_role.php");
+require_once($page->getClassRoot()."lt_users_role.php");
 
 /*********************************************************************
 
@@ -51,7 +53,8 @@ if($page->submitIsSet("login")){
 	//If actually a user, get the Password history
 	$ph = new Password_history();
 
-	$pass = $ph->getPassword_historyByUser_id($user[id]);
+	$pass = $ph->getPassword_historyByUsersid($user[ID]+0);
+
 	if(is_array($pass)){
 	    $pass=$pass[0]; //strip array wrapper
 	} else {
@@ -60,17 +63,20 @@ if($page->submitIsSet("login")){
 
 	//Compare the expected password with what the user entered
 	if($pass[PASSWORD_VALUE] == md5($password)){
-	    $user_db->resetLoginTries($user[ID]);
-	    $user_db->updateLastLogin($user[ID]);
-	    return $user[ID];
+	    $user_db->resetLoginTries($user[ID]+0);
+	    $user_db->updateLastLogin($user[ID]+0);
+	
+		$role_db = new X_users_role();
+		$role = $role_db->getX_Users_roleByUsersid($user[ID]+0);
+
+		$roles_db = new Lt_users_role();
+		$role_name = $roles_db->getLt_users_roleById($role[0][USERS_ROLE]+0);
+
+		Session::login($user[ID], $user[USERNAME], $role_name[0][ID], $role_name[0][LABEL]);
+		$success=true;
 	} else {
 		$user_db->incrementLoginTries($user[ID]);
-		return false;
-	}
-
-	if(is_array($result)){
-		var_dump($result);
-	} else {
+		$success=false;
 		$errors[general] = "Username and/or Password Incorrect!  Try again.";
 	}
 }
@@ -82,13 +88,13 @@ if($page->submitIsSet("login")){
 *********************************************************************/
 
 //INclude the Header HTML
-$page->startTemplate();
+//$page->startTemplate();
 
 //Include the HTML Template
 $page->setDisplayMode("form");
 include($page->getTemplateRoot()."login.html");
 
 //Include the Footer HTML
-$page->displayFooter();
+//$page->displayFooter();
 
 ?>
