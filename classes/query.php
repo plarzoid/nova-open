@@ -35,7 +35,7 @@ public function __construct(){
 *   Destructor
 ***************/
 public function __destruct(){
-	mysql_close($this->connection);//see if this works this time
+	//mysql_close($this->connection);//see if this works this time
 }
 
 
@@ -49,10 +49,10 @@ public function query($sql){
 	if(is_bool($result)){return $result;}
 
 	//fetch the individual rows from the query
-	$row = mysql_fetch_row($result);
+	$row = mysql_fetch_assoc($result);
 	while($row){
 		$ret[]=$row;
-		$row = mysql_fetch_row($result);
+		$row = mysql_fetch_assoc($result);
 	}
 
 	if(is_array($ret)){

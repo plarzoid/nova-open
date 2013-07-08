@@ -1,0 +1,14 @@
+<form method="<?=$form_method?>" action="<?=$form_action?>">
+<table width="80%" align="center">
+	<tr><td colspan=2 align="center"><h2>Manage Users</h2></td></tr>
+	<tr><td><?=$page->displayVar("selected_user")?></td></tr>
+	<?if($success){?>
+		<tr><td colspan=2 align="center"><h2 class="success"><?=$success_string?></h2></td></tr>
+	<?} else {?>
+		<tr>
+	        <td class="right"><?=$page->displayVar("user_select")?></td>
+	        <td class="left"><?=$page->displayVar("submit_user_select")?></td>
+    	</tr>
+	<?}?>
+	<tr><td colspan=2><hr/></tr></td>
+</table>

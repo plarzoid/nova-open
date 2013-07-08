@@ -1,0 +1,60 @@
+<table align="center">
+	<tr><td colspan=2><hr/></td></tr>
+	<tr>
+		<td class="right"?><label for="username">Username:</label></td>
+		<td class="left">
+			<?=$page->displayVar("username")?>
+			<?if($errors[username]){?><font class="warning"><?=$errors[username]?></font><?}?>
+		</td>
+	</tr>
+	<tr>
+        <td class="right"?><label for="password">Password:</label></td>
+        <td class="left">
+			<?=$page->displayVar("password")?>
+			<?if($errors[password]){?><font class="warning"><?=$errors[password]?></font><?}?>
+		</td>
+    </tr>
+	<tr>
+        <td class="right"?><label for="confirm_password">Confirm Password:</label></td>
+        <td class="left">
+			<?=$page->displayVar("confirm_password")?>
+			<?if($errors[confirm_password]){?><font class="warning"><?=$errors[confirm_password]?></font><?}?>
+		</td>
+    </tr>
+	<tr><td colspan=2><hr/></td></tr>
+	<tr>
+	    <td class="right"?><label for="first_name">First Name:</label></td>
+	    <td class="left">
+			<?=$page->displayVar("first_name")?>
+			<?if($errors[first_name]){?><font class="warning"><?=$errors[first_name]?></font><?}?>
+		</td>
+	</tr>
+	<tr>
+        <td class="right"?><label for="middle_name">Middle Name:</label></td>
+        <td class="left">
+			<?=$page->displayVar("middle_name")?>
+			<?if($errors[middle_name]){?><font class="warning"><?=$errors[middle_name]?></font><?}?>
+		</td>
+    </tr>
+    <tr>
+        <td class="right"?><label for="last_name">Last Name:</label></td>
+        <td class="left">
+			<?=$page->displayVar("last_name")?>
+			<?if($errors[last_name]){?><font class="warning"><?=$errors[last_name]?></font><?}?>
+		</td>
+    </tr>
+	<tr>
+        <td class="right"?><label for="email">E-Mail Address:</label></td>
+        <td class="left">
+			<?=$page->displayVar("email")?>
+			<?if($errors[email]){?><font class="warning"><?=$errors[email]?></font><?}?>
+		</td>
+    </tr>
+	<tr><td colspan=2><hr/></td></tr>
+    <tr>
+        <td class="right"?><label for="acount_status">Account Status:</label></td>
+        <td class="left"><?=$page->displayVar("account_status")?></td>
+    </tr>
+	<tr><td colspan=2><hr/></tr></td>
+	<tr><td colspan=2 align="center"><?=$page->displayVar("submit_user")?></td></tr>
+</table>

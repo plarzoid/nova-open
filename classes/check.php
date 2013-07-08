@@ -121,8 +121,8 @@ class Check
 
 
   function validEmail($e) {
-    if (!preg_match("/.+@.+\..+/", $e)) {
-      return " Invalid: must be of the format x@x.x";
+    if (preg_match("/.+@.+\..+/", $e)) {
+      return true;
     }
     return false;
   }

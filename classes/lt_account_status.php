@@ -58,6 +58,12 @@ public function deleteLt_account_status($id){
 }
 
 
+public function getAllLt_account_status(){
+	$sql = "SELECT * FROM $this->table";
+
+	return $this->query->query($sql);
+}
+
 /**************************************************
 
 Query By Column Function(s)
