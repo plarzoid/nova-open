@@ -7,7 +7,15 @@
 
 <body>
 	<table width="80%" align="center">
-		<tr align="center"><td><h1>Nova Open Convention Management System</h1></td></tr>
-		<tr><td><hr/></td></tr>
+		<tr align="center">
+		 	<?if(Session::isLoggedIn()){?>
+				<td align="left">Logged in as: <?=Session::username()?></td>
+			<?}?>
+			<td align="center"><h1>Nova Open Convention Management System</h1></td>
+			<?if(Session::isLoggedIn()){?>
+                <td align="right"><a href="logout.php">Logout</a></td>
+            <?}?>
+		</tr>
+		<tr><td colspan=3><hr/></td></tr>
 	</table>
 

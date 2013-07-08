@@ -12,12 +12,16 @@
 //utilize the Page's root
 require_once($page->getClassRoot()."users.php");
 require_once($page->getClassRoot()."password_history.php");
+require_once($page->getClassRoot()."x_users_role.php");
 
 /*********************************************************************
 
   Variables & HTML Inputs
 
 *********************************************************************/
+
+//database interfaces
+$role_db = new X_users_role();
 
 //Form Vars
 $form_action=$_SERVER[PHP_SELF];
@@ -44,6 +48,9 @@ if(!is_numeric($selected_user)){
 	$user_db = new Users();
 	$defaults = $user_db->getUsersById($selected_user+0);  //needs an int
 	$defaults = $defaults[0];
+
+	$roles = $role_db->getX_users_roleByUsersid($selected_user+0);
+	$defaults["USER_ROLE"] = $roles[0]["USERS_ROLE"];
 }
 
 //Register variables with the page
@@ -54,6 +61,8 @@ $page->register("first_name", 		"textbox", 	array("use_post"=>1, "box_size"=>20,
 $page->register("middle_name", 		"textbox", 	array("use_post"=>1, "box_size"=>20, "default_val"=>$defaults["MIDDLE_NAME"]));
 $page->register("last_name", 		"textbox", 	array("use_post"=>1, "box_size"=>20, "default_val"=>$defaults["LAST_NAME"]));
 $page->register("email", 			"textbox", 	array("use_post"=>1, "box_size"=>20, "default_val"=>$defaults["EMAIL"]));
+$page->register("user_role",		"select",	array("use_post"=>1, "default_val"=>$defaults["USER_ROLE"],
+	"get_choices_array_func"=>"getUserRoleChoices", "get_choices_array_func_args"=>null));
 $page->register("account_status", 	"select", 	array("use_post"=>1, "default_val"=>$defaults["ACCOUNT_STATUS"], 
     "get_choices_array_func"=>"getAccountStatusChoices", "get_choices_array_func_args"=>null));
 $page->register("submit_user", 		"submit", 	array("use_post"=>1, "value"=>"Submit"));
@@ -76,6 +85,7 @@ if($page->submitIsSet("submit_user")){
 	$middle = $page->getVar("middle_name");
 	$last = $page->getVar("last_name");
 	$email = $page->getVar("email");
+	$role = $page->getVar("user_role");
 	$account_status = $page->getVar("account_status");
 
 	$user_db = new Users();
@@ -127,27 +137,42 @@ if($page->submitIsSet("submit_user")){
 		$ph_db = new Password_history();
 
 		if(!strcmp($selected_user, "NEW")){
-			$new_user_id = $user_db->createUser($username, $first_name, $middle_name, $last_name, $email, $account_status+0, Session::username());
+			$new_user_id = $user_db->createUser($username, 
+												$first_name, $middle_name, $last_name, 
+												$email, $account_status+0, Session::username());
+			
 			if($new_user_id){
-				//$users_id, $password_value, $created_by
-				$success_password = $ph_db->createPassword_history($new_user_id, md5($password), Session::username());
+				$success_password = $ph_db->createPassword_history($new_user_id+0, md5($password), Session::username());
+							
+				$success_role = $role_db->createX_users_role($new_user_id+0, $role+0, Session::username());
 
-				if($success_password){
+				if($success_password && $success_role){
 					$success=true;
 					$success_string="New User created Successfully!";
 				}
 			}
 		} else {
-			$update_success = $user_db->updateUser($selected_user+0, $username, $first_name, $middle_name, $last_name, $email, $account_status+0, Session::username());
+			$update_success = $user_db->updateUser(	$selected_user+0, $username, 
+													$first_name, $middle_name, $last_name, 
+													$email, $account_status+0, Session::username());
+
+			$role_update_success = $role_db->updateX_users_role($selected_user+0, $role+0, Session::username());
 
 			if(strlen($password) > 0){
 				$password_update_success = $ph_db->updatePassword_history($selected_user+0, md5($password), Session::username());
-
-				if($password_update_success){
-                    $success=true;
-                    $success_string="User updated Successfully!";
-                }
+			} else {
+				$password_update_success=true;
 			}
+
+			if($update_success && $password_update_success && $role_update_success){
+                $success=true;
+                $success_string="User updated Successfully!";
+            }
+		}
+
+		if(!$success){
+			$failure=true;
+			$failure_string="Database error has occurred!";
 		}
 	}
 }
@@ -159,7 +184,7 @@ if($page->submitIsSet("submit_user")){
 *********************************************************************/
 
 //INclude the Header HTML
-$page->startTemplate();
+//$page->startTemplate();
 
 //Include the HTML Template
 if($success){
@@ -177,6 +202,6 @@ if($selected_user){
 include($page->getTemplateRoot()."manage_users_footer.html");
 
 //Include the Footer HTML
-$page->displayFooter();
+//$page->displayFooter();
 
 ?>

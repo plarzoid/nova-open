@@ -9,6 +9,7 @@ Include the dependency classes
 *****************************************************/
 
 require_once("lt_account_status.php");
+require_once("lt_users_role.php");
 require_once("users.php");
 
 
@@ -64,6 +65,18 @@ class Choices {
 
 		return $this->createChoices(array(), $statuses, "LABEL", "ID");
 	}
+
+	function getUserRoleChoices(){
+		
+		//Start up the database interface
+		$role_options_db = new Lt_users_role();
+
+		//get the roles
+		$roles = $role_options_db->getRoles();
+
+		return $this->createChoices(array(), $roles, "LABEL", "ID");
+	}
+
 
 	function createChoices($initial_array, $options, $text_fieldname, $value_fieldname){
 		$ret = $initial_array;

@@ -1,8 +1,16 @@
 		<table width="80%" align="center">
-			<tr><td><hr/></td><tr>
-			<tr><td align="center"><h5><em> 
-			Database Design &copy; Owen Beste<br/>
-			<br/>Software &copy; Plarzoid Productions, LLC</em></h5></td></tr>
+			<tr><td colspan=2><hr/></td><tr>
+            <?if(Session::isLoggedIn()){?>
+	        	<tr align="center">
+					<td align="left">Logged in as: <?=Session::username()?></td>
+			        <td align="right"><a href="logout.php">Logout</a></td>
+				</tr>
+			<?}?>
+			<tr>
+				<td colspan=2 align="center">
+					<h5><em>Database Design &copy; Owen Beste<br/>Software &copy; Plarzoid Productions, LLC</em></h5>
+				</td>
+			</tr>
 		</table>	
 	</body>
 </html>

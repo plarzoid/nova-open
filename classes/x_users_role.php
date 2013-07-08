@@ -32,19 +32,36 @@ public function __destruct(){}
 Create Function
 
 **************************************************/
-public function createX_users_role($users_id, $users_role, $last_modified_by, $last_modified_date, $created_by, $created_date){
+public function createX_users_role($users_id, $users_role, $created_by){
 
 	//Validate the inputs
 	if(!is_int($users_id)){return false;}
 	if(!is_int($users_role)){return false;}
-	if(is_string($last_modified_by)){if(strlen($last_modified_by) == 0){return false;}} else {return false;}
 	if(is_string($created_by)){if(strlen($created_by) == 0){return false;}} else {return false;}
 
-	$sql = "INSERT INTO $this->table (USERS_ID, USERS_ROLE, LAST_MODIFIED_BY, LAST_MODIFIED_DATE, CREATED_BY, CREATED_DATE) VALUES ($users_id, $users_role, '$last_modified_by', $last_modified_date, '$created_by', $created_date)";
+	$sql = "INSERT INTO $this->table ";
+	$sql.= "(USERS_ID, USERS_ROLE, LAST_MODIFIED_BY, LAST_MODIFIED_DATE, CREATED_BY, CREATED_DATE) ";
+	$sql.= "VALUES ";
+	$sql.= "($users_id, $users_role, '', 0, '$created_by', NOW())";
 
 	return $this->query->query($sql);
 }
 
+
+public function updateX_users_role($users_id, $users_role, $last_modified_by){
+    //Validate the inputs
+    if(!is_int($users_id)){return false;}
+    if(!is_int($users_role)){return false;}
+    if(is_string($last_modified_by)){if(strlen($last_modified_by) == 0){return false;}} else {return false;}
+	
+	
+	$sql = "UPDATE $this->table SET ";
+	$sql.= "USERS_ROLE=$users_role, ";
+	$sql.= "LAST_MODIFIED_BY='$last_modified_by', LAST_MODIFIED_DATE=NOW() ";
+	$sql.= "WHERE USERS_ID=$users_id";
+
+	return $this->query->update($sql);
+}
 
 /**************************************************
 

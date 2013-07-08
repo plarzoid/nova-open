@@ -60,6 +60,18 @@ public function deleteLt_users_role($id){
 
 /**************************************************
 
+Custom Functions
+
+**************************************************/
+public function getRoles(){
+	$sql = "SELECT * FROM $this->table";
+
+	return $this->query->query($sql);
+}
+
+
+/**************************************************
+
 Query By Column Function(s)
 
 **************************************************/
