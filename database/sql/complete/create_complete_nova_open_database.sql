@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS `nova_open`;
+DROP DATABASE IF EXISTS `owen_nova_open`;
 
-CREATE DATABASE  IF NOT EXISTS `nova_open` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `nova_open`;
+CREATE DATABASE  IF NOT EXISTS `owen_nova_open` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `owen_nova_open`;
 SET FOREIGN_KEY_CHECKS = 0; 
 
 -- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
@@ -69,7 +69,6 @@ DROP TABLE IF EXISTS `appearance_score`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `appearance_score` (
   `ID` int(11) NOT NULL,
-  `EVENT_ID` int(11) NOT NULL,
   `ENTRY_ID` int(11) NOT NULL,
   `JUDGE_ID` int(11) NOT NULL,
   `BASE_SCORE` int(11) NOT NULL,
@@ -82,7 +81,6 @@ CREATE TABLE `appearance_score` (
   PRIMARY KEY (`ID`),
   KEY `FK_APP_SCORE_ENTRY_ID` (`ENTRY_ID`),
   KEY `FK_APP_SCORE_JUDGE_ID` (`JUDGE_ID`),
-  CONSTRAINT `FK_APP_ENTRY_EVENT_ID` FOREIGN KEY (`EVENT_ID`) REFERENCES `EVENT` (`ID`),
   CONSTRAINT `FK_APP_SCORE_ENTRY_ID` FOREIGN KEY (`ENTRY_ID`) REFERENCES `appearance_entry` (`ID`),
   CONSTRAINT `FK_APP_SCORE_JUDGE_ID` FOREIGN KEY (`JUDGE_ID`) REFERENCES `user` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -3,17 +3,18 @@
 <head>
 <title>Nova Open CMS</title>
 <LINK REL="StyleSheet" TYPE="text/css" HREF="style.css" />
+<?=$meta?>
 </head>
 
 <body>
 	<table width="80%" align="center">
 		<tr align="center">
 		 	<?if(Session::isLoggedIn()){?>
-				<td align="left">Logged in as: <?=Session::username()?> (<?=Session::role_name()?>)</td>
+				<td align="left" width="20%">Logged in as: <?=Session::username()?> (<?=Session::role_name()?>)</td>
 			<?}?>
 			<td align="center"><h1>Nova Open Convention Management System</h1></td>
 			<?if(Session::isLoggedIn()){?>
-                <td align="right"><a href="index.php?action=logout">Logout</a></td>
+                <td align="right" width="20%"><a href="login.php?action=logout">Logout</a></td>
             <?}?>
 		</tr>
 		<tr><td colspan=3><hr/></td></tr>

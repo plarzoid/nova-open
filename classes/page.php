@@ -102,7 +102,7 @@ class Page {
 		else return false;
 	}
 
-	function startTemplate($noheader=false) {
+	function startTemplate($meta=null) {
 
 		include($this->getTemplateRoot()."default_header.html");
 	}

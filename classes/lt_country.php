@@ -60,6 +60,17 @@ public function deleteLt_country($id){
 
 /**************************************************
 
+Custom Functions
+
+**************************************************/
+public function getLt_countrys(){
+	$sql = "SELECT * FROM $this->table";
+	return $this->query->query($sql);
+}
+
+
+/**************************************************
+
 Query By Column Function(s)
 
 **************************************************/

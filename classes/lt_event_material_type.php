@@ -60,6 +60,16 @@ public function deleteLt_event_material_type($id){
 
 /**************************************************
 
+Custom Functions
+
+**************************************************/
+public function getLt_event_material_types(){
+	$sql = "SELECT * FROM $this->table";
+	return $this->query->query();
+}
+
+/**************************************************
+
 Query By Column Function(s)
 
 **************************************************/

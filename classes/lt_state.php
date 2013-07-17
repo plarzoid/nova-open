@@ -60,6 +60,17 @@ public function deleteLt_state($id){
 
 /**************************************************
 
+Custom Functions
+
+**************************************************/
+public function getLt_states(){
+	$sql = "SELECT * FROM $this->table";
+	return $this->query->query($sql);
+}
+
+
+/**************************************************
+
 Query By Column Function(s)
 
 **************************************************/

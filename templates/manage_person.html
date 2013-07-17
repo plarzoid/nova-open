@@ -1,0 +1,95 @@
+<table align="center">
+	<tr><td colspan=2><hr/></td></tr>
+	<tr>
+	    <td class="right"?><label for="first_name">First Name:</label></td>
+	    <td class="left">
+			<?=$page->displayVar("first_name")?>
+			<?if($errors[first_name]){?><font class="warning"><?=$errors[first_name]?></font><?}?>
+		</td>
+	</tr>
+	<tr>
+        <td class="right"?><label for="middle_name">Middle Name:</label></td>
+        <td class="left">
+			<?=$page->displayVar("middle_name")?>
+			<?if($errors[middle_name]){?><font class="warning"><?=$errors[middle_name]?></font><?}?>
+		</td>
+    </tr>
+    <tr>
+        <td class="right"?><label for="last_name">Last Name:</label></td>
+        <td class="left">
+			<?=$page->displayVar("last_name")?>
+			<?if($errors[last_name]){?><font class="warning"><?=$errors[last_name]?></font><?}?>
+		</td>
+    </tr>
+	<tr>
+        <td class="right"?><label for="email">E-Mail Address:</label></td>
+        <td class="left">
+			<?=$page->displayVar("email")?>
+			<?if($errors[email]){?><font class="warning"><?=$errors[email]?></font><?}?>
+		</td>
+    </tr>
+	<tr><td colspan=2><hr/></td></tr>
+    <tr>
+        <td class="right"?><label for="address">Address:</label></td>
+        <td class="left">
+            <?=$page->displayVar("address")?>
+            <?if($errors[address]){?><font class="warning"><?=$errors[address]?></font><?}?>
+        </td>
+    </tr>
+    <tr>
+        <td class="right"?><label for="city">City:</label></td>
+        <td class="left">
+            <?=$page->displayVar("city")?>
+            <?if($errors[city]){?><font class="warning"><?=$errors[city]?></font><?}?>
+        </td>
+    </tr>
+    <tr>
+        <td class="right"?><label for="country">Country:</label></td>
+        <td class="left">
+            <?=$page->displayVar("country")?>
+            <?if($errors[country]){?><font class="warning"><?=$errors[country]?></font><?}?>
+        </td>
+    </tr>
+    <tr>
+        <td class="right"?><label for="state">State:</label></td>
+        <td class="left">
+            <?=$page->displayVar("state")?>
+            <?if($errors[state]){?><font class="warning"><?=$errors[state]?></font><?}?>
+        </td>
+    </tr>
+    <tr>
+        <td class="right"?><label for="zip">ZIP:</label></td>
+        <td class="left">
+            <?=$page->displayVar("zip")?>
+            <?if($errors[zip]){?><font class="warning"><?=$errors[zip]?></font><?}?>
+        </td>
+    </tr>
+	<tr><td colspan=2><hr/></td></tr>
+    <tr>
+        <td class="right"?><label for="phone">Phone Number:</label></td>
+        <td class="left">
+            <?=$page->displayVar("phone")?>
+            <?if($errors[phone]){?><font class="warning"><?=$errors[phone]?></font><?}?>
+        </td>
+    </tr>
+    <tr>
+        <td class="right"?><label for="website">Website:</label></td>
+        <td class="left">
+            <?=$page->displayVar("website")?>
+            <?if($errors[website]){?><font class="warning"><?=$errors[website]?></font><?}?>
+        </td>
+    </tr>
+    <tr>
+	    <td class="right"?><label for="note">Notes:</label></td>
+	    <td class="left">
+	        <?=$page->displayVar("note")?>
+            <?if($errors[note]){?><font class="warning"><?=$errors[note]?></font><?}?>
+        </td>
+    </tr>
+	<tr>
+        <td class="right"?><label for="acount_active">Account Active:</label></td>
+        <td class="left"><?=$page->displayVar("account_active")?></td>
+    </tr>
+	<tr><td colspan=2><hr/></tr></td>
+	<tr><td colspan=2 align="center"><?=$page->displayVar("submit_person")?></td></tr>
+</table>

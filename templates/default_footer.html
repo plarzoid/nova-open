@@ -3,7 +3,7 @@
             <?if(Session::isLoggedIn()){?>
 	        	<tr align="center">
 					<td align="left">Logged in as: <?=Session::username()?> (<?=Session::role_name()?>)</td>
-			        <td align="right"><a href="index.php?action=logout">Logout</a></td>
+			        <td align="right"><a href="login.php?action=logout">Logout</a></td>
 				</tr>
 			<?}?>
 			<tr>

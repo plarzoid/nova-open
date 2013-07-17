@@ -57,6 +57,15 @@ public function deleteLt_event_type($id){
 	return $this->query->update($sql);
 }
 
+/**************************************************
+
+Custom Functions
+
+**************************************************/
+public function getLt_event_types(){
+	$sql = "SELECT * FROM $this->table";
+	return $this->query->query($sql);
+}
 
 /**************************************************
 

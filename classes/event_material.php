@@ -61,6 +61,15 @@ public function deleteEvent_material($id){
 	return $this->query->update($sql);
 }
 
+/**************************************************
+
+Custom Functions
+
+**************************************************/
+public function getEvent_materials(){
+	$sql = "SELECT * FROM $this->table";
+	return $this->query->query($sql);
+}
 
 /**************************************************
 

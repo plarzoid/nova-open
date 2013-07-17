@@ -4,16 +4,31 @@
 
 	Page Setup
 
-	Items in the acumen layer are always called by something outside
-		So, there's never a need to instantiate the Page class
-
 *********************************************************************/
+
+include("classes/page.php");
+
+$page = new Page();
 
 //utilize the Page's root
 require_once($page->getClassRoot()."users.php");
 require_once($page->getClassRoot()."password_history.php");
 require_once($page->getClassRoot()."x_users_role.php");
 require_once($page->getClassRoot()."lt_users_role.php");
+
+
+/*********************************************************************
+
+  Handle the logout action
+
+*********************************************************************/
+
+if($_REQUEST[action]=="logout"){
+	Session::logout();
+	$logout=true;
+	$meta='<META http-equiv="refresh" content="2;login.php">';
+}
+
 
 /*********************************************************************
 
@@ -63,6 +78,7 @@ if($page->submitIsSet("login")){
 
 	//Compare the expected password with what the user entered
 	if($pass[PASSWORD_VALUE] == md5($password)){
+
 	    $user_db->resetLoginTries($user[ID]+0);
 	    $user_db->updateLastLogin($user[ID]+0);
 	
@@ -74,11 +90,14 @@ if($page->submitIsSet("login")){
 
 		Session::login($user[ID], $user[USERNAME], $role_name[0][ID], $role_name[0][LABEL]);
 		$success=true;
+		$meta='<META http-equiv="refresh" content="5;index.php">';
 
 	} else {
+
 		$user_db->incrementLoginTries($user[ID]);
 		$success=false;
 		$errors[general] = "Username and/or Password Incorrect!  Try again.";
+
 	}
 }
 
@@ -88,8 +107,14 @@ if($page->submitIsSet("login")){
 
 *********************************************************************/
 
+$page->startTemplate($meta);
+
+if(Session::isNotLoggedIn()){if($logout){include($page->getTemplateRoot()."logout.html");}}
+
 //Include the HTML Template
 $page->setDisplayMode("form");
 include($page->getTemplateRoot()."login.html");
+
+$page->displayFooter();
 
 ?>

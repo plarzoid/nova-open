@@ -32,7 +32,7 @@ public function __destruct(){}
 Create Function
 
 **************************************************/
-public function createPerson($first_name, $middle_name, $last_name, $email, $address, $city, $state_id, $country_id, $zip, $phone_number, $website_url, $note, $is_active, $last_modified_by, $last_modified_date, $created_by, $created_date){
+public function createPerson($first_name, $middle_name, $last_name, $email, $address, $city, $country_id, $state_id, $zip, $phone_number, $website_url, $note, $is_active, $created_by){
 
 	//Validate the inputs
 	if(is_string($first_name)){if(strlen($first_name) == 0){return false;}} else {return false;}
@@ -41,19 +41,41 @@ public function createPerson($first_name, $middle_name, $last_name, $email, $add
 	if(is_string($email)){if(strlen($email) == 0){return false;}} else {return false;}
 	if(is_string($address)){if(strlen($address) == 0){return false;}} else {return false;}
 	if(is_string($city)){if(strlen($city) == 0){return false;}} else {return false;}
-	if(!is_int($state_id)){return false;}
-	if(!is_int($country_id)){return false;}
+	if(!is_numeric($state_id)){return false;}
+	if(!is_numeric($country_id)){return false;}
 	if(is_string($zip)){if(strlen($zip) == 0){return false;}} else {return false;}
-	if(is_string($phone_number)){if(strlen($phone_number) == 0){return false;}} else {return false;}
-	if(is_string($website_url)){if(strlen($website_url) == 0){return false;}} else {return false;}
-	if(is_string($note)){if(strlen($note) == 0){return false;}} else {return false;}
-	if(!is_int($is_active)){return false;}
-	if(is_string($last_modified_by)){if(strlen($last_modified_by) == 0){return false;}} else {return false;}
+	if(!is_numeric($is_active)){return false;}
 	if(is_string($created_by)){if(strlen($created_by) == 0){return false;}} else {return false;}
-
-	$sql = "INSERT INTO $this->table (FIRST_NAME, MIDDLE_NAME, LAST_NAME, EMAIL, ADDRESS, CITY, STATE_ID, COUNTRY_ID, ZIP, PHONE_NUMBER, WEBSITE_URL, NOTE, IS_ACTIVE, LAST_MODIFIED_BY, LAST_MODIFIED_DATE, CREATED_BY, CREATED_DATE) VALUES ('$first_name', '$middle_name', '$last_name', '$email', '$address', '$city', $state_id, $country_id, '$zip', '$phone_number', '$website_url', '$note', $is_active, '$last_modified_by', $last_modified_date, '$created_by', $created_date)";
+	$sql = "INSERT INTO $this->table (FIRST_NAME, MIDDLE_NAME, LAST_NAME, EMAIL, ADDRESS, CITY, STATE_ID, COUNTRY_ID, ZIP, PHONE_NUMBER, WEBSITE_URL, NOTE, IS_ACTIVE, LAST_MODIFIED_BY, LAST_MODIFIED_DATE, CREATED_BY, CREATED_DATE) VALUES ('$first_name', '$middle_name', '$last_name', '$email', '$address', '$city', $state_id, $country_id, '$zip', '$phone_number', '$website_url', '$note', $is_active, '', 0, '$created_by', NOW())";
 
 	return $this->query->query($sql);
+}
+
+public function updatePerson($id, $first_name, $middle_name, $last_name, $email, $address, $city, $country_id, $state_id, $zip, $phone_number, $website_url, $note, $is_active, $modified_by){
+
+    //Validate the inputs
+	if(is_string($first_name)){if(strlen($first_name) == 0){return false;}} else {return false;}
+	if(is_string($middle_name)){if(strlen($middle_name) == 0){return false;}} else {return false;}
+	if(is_string($last_name)){if(strlen($last_name) == 0){return false;}} else {return false;}
+	if(is_string($email)){if(strlen($email) == 0){return false;}} else {return false;}
+	if(is_string($address)){if(strlen($address) == 0){return false;}} else {return false;}
+	if(is_string($city)){if(strlen($city) == 0){return false;}} else {return false;}
+	if(!is_numeric($state_id)){return false;}
+	if(!is_numeric($country_id)){return false;}
+	if(is_string($zip)){if(strlen($zip) == 0){return false;}} else {return false;}
+	if(!is_numeric($is_active)){return false;}
+	if(is_string($modified_by)){if(strlen($modified_by) == 0){return false;}} else {return false;}
+
+
+	$sql = "UPDATE $this->table SET ";
+	$sql.= "FIRST_NAME='$first_name', MIDDLE_NAME='$middle_name', LAST_NAME='$last_name', ";
+	$sql.= "EMAIL='$email', ";
+	$sql.= "ADDRESS='$address', CITY='$city', STATE_ID=$state_id, COUNTRY_ID=$country_id, ZIP='$zip', ";
+	$sql.= "PHONE_NUMBER='$phone_number', WEBSITE_URL='$website_url', NOTE='$note', IS_ACTIVE=$is_active, ";
+	$sql.= "LAST_MODIFIED_BY='$modified_by', LAST_MODIFIED_DATE=NOW() ";
+	$sql.= "WHERE ID=$id";
+
+	return $this->query->update($sql);
 }
 
 
@@ -70,6 +92,11 @@ public function deletePerson($id){
 	return $this->query->update($sql);
 }
 
+
+public function getPersons(){
+	$sql = "SELECT * FROM $this->table ORDER BY LAST_NAME";
+	return $this->query->query($sql);
+}
 
 /**************************************************
 
@@ -211,7 +238,7 @@ public function getPersonByCreatedBy($created_by){
 }
 
 public function getPersonByCreatedDate($created_date){
-	$sql = "SELECT * FROM $this->table WHERE CREATED_DATE=$created_date";
+	$$sql = "SELECT * FROM $this->table WHERE CREATED_DATE=$created_date";
 
 	return $this->query->query($sql);
 }

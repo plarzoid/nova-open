@@ -57,6 +57,16 @@ public function deleteLt_game_system($id){
 	return $this->query->update($sql);
 }
 
+/**************************************************
+
+Custom functions
+
+**************************************************/
+public function getLt_game_systems(){
+	$sql = "SELECT * FROM $this->table";
+	return $this->query->query($sql);
+}
+
 
 /**************************************************
 
