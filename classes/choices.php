@@ -117,6 +117,21 @@ class Choices {
         return $ret;
 	}
 
+	function getEventChoices(){
+		$event_db = new Event();
+		$events = $event_db->getAvailableEvents();
+
+		$ret = array(array("text"=>"Please Select...", "value"=>0));
+
+        foreach($events as $e){
+			$text=$e[NAME]." ($".$e[PRICE]."), ".date("D", $e[EVENT_START]);
+            $ret[] = array("text"=>$text, "value"=>$e[ID]);
+        }
+
+		return $ret;
+    }
+
+
 	function getEventChoicesByGameSystem($game_system_id){
 		$event_db = new Event();
 		$events = $event_db->getEventByGameSystemId($game_system_id);
@@ -176,6 +191,25 @@ class Choices {
 
 		return $ret;
     }
+
+	function getSelectPersonChoices(){
+		//Start up a connection to the Users Table
+        $person_db = new Person();
+
+        //initialize the return array of choices
+        $ret = array(array("text"=>"Please select...", "value"=>"NULL"));
+
+        //Query for the existing users
+        $persons = $person_db->getPersons();
+
+        if(is_array($persons)){
+            foreach($persons as $p){
+                $ret[] = array("text"=>$p["LAST_NAME"].", ".$p["FIRST_NAME"], "value"=>$p[ID]);
+            }
+        }
+
+        return $ret;
+	}
 
 	function getAccountStatusChoices(){
 		

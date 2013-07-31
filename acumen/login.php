@@ -74,7 +74,7 @@ if($page->submitIsSet("login")){
 
 		Session::login($user[ID], $user[USERNAME], $role_name[0][ID], $role_name[0][LABEL]);
 		$success=true;
-
+		$meta='<meta http-equiv="refresh" content=3>';
 	} else {
 		$user_db->incrementLoginTries($user[ID]);
 		$success=false;

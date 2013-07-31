@@ -68,6 +68,20 @@ public function deleteEvent($id){
 
 /**************************************************
 
+custom functions
+
+**************************************************/
+
+public function getEvents(){
+	return $this->query->query("SELECT * FROM $this->table");
+}
+
+public function getAvailableEvents(){
+	return $this->query->query("SELECT * FROM $this->table WHERE AVAILABLE_QTY>0 OR AVAILABLE_QTY IS NULL");
+}
+
+/**************************************************
+
 Query By Column Function(s)
 
 **************************************************/

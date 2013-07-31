@@ -54,7 +54,7 @@ $page->register("last_name", 		"textbox", 	array("use_post"=>1, "box_size"=>20, 
 $page->register("email", 			"textbox", 	array("use_post"=>1, "box_size"=>20, "default_val"=>$defaults["EMAIL"]));
 $page->register("address",          "textbox",  array("use_post"=>1, "box_size"=>20, "default_val"=>$defaults["ADDRESS"]));
 $page->register("city",             "textbox",  array("use_post"=>1, "box_size"=>20, "default_val"=>$defaults["CITY"]));
-$page->register("state",            "select",   array("use_post"=>1,  "default_val"=>$defaults["STATE_ID"],
+$page->register("state",            "select",   array("use_post"=>1, "default_val"=>$defaults["STATE_ID"],
 	"get_choices_array_func"=>"getStateChoices", "get_choices_array_func_args"=>null));
 $page->register("country",          "select",   array("use_post"=>1, "default_val"=>$defaults["COUNTRY_ID"],
 	"get_choices_array_func"=>"getCountryChoices", "get_choices_array_func_args"=>null));

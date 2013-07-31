@@ -1,0 +1,73 @@
+<form method="<?=$form_method?>" action="<?=$form_action?>">
+<table width="100%" align="center">
+	<tr>
+		<td class="right"><?=$page->displayVar("person_select")?></td>
+		<td class="left"><?=$page->displayVar("select_person_submit")?></td>
+	</tr>
+	<tr><td><?=$page->displayVar("selected_person")?></td></tr>
+	<tr><td colspan=2><hr></td></tr>
+</table>
+<table width="100%" align="center">
+	<tr><td align="center" colspan=2>
+	<?if(is_numeric($selected_person)){?>
+		<table width="50%" align="center">
+			<tr><td><?=$page->displayVar("num_regs")?></td></tr>
+			<tr><td align="center" colspan=2><h3>Add new Event Registration</h3></td></tr>
+			<?for($i=0; $i<$num_regs; $i++){?>
+				<tr><td align="center" colspan=2><?=$page->displayVar("registration_".$i)?></td></tr>
+			<?}?>
+			<tr>
+				<td class="right"><?=$page->displayVar("add_reg")?></td>
+				<td class="left"><?=$page->displayVar("submit_regs")?></td>
+			</tr>
+		</table>
+	</td><td align="center">
+		<table width="50%" align="center">
+			<?if(!is_array($regs)){?>
+            <tr><td align="center"><h3>No existing registrations!</h3></td></tr>
+			<?} else {?>
+			<tr><td align="center"><h3>Current Event Registrations</h3></td></tr>
+			<tr><td>
+				<table width="100%" align="center" border=1>
+					<tr>
+						<th align="center">Event</th>
+						<th align="center">Qty</th>
+						<td></td>
+					</tr>
+					<?foreach($regs as $r){?>
+						<tr>
+							<td align="center"><?=$r[NAME]?></td>
+							<td align="center"><?=$r[QUANTITY]?></td>
+							<td align="center"><?=$page->displayVar("delete_".$r[ID])?></td>
+						</tr>
+					<?}?>
+				</table>
+			</td></tr>
+			<?}?>
+		</table>
+	<?} else {?>
+		<table align="center" width="100%" border=1>
+			<tr><td align="center" colspan=6><h3> Event Details </h3></td></tr>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Sold/Avail</th>
+				<th>Time</th>
+				<th>Price</th>
+				<th>Note</th>
+			</tr>
+			<?foreach($events as $e){?>
+				<tr>
+					<td><?=$e[NAME]?></td>
+					<td><?=$e[DESCRIPTION]?></td>
+					<td><?=$e[REGISTRATIONS]?>/<?=$e[AVAILABLE_QTY]?></td>
+					<td><?=date("D H:i", $e[EVENT_START])?></td>
+					<td>$<?=$e[PRICE]?></td>
+					<td><?=$e[NOTE]?></td>
+				</tr>
+			<?}?>
+		</table>
+	<?}?>
+	</td></tr>
+</table>
+</form>
