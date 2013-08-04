@@ -81,7 +81,7 @@ class Choices {
 	function getGameSystemChoices(){
 		$gs_db = new Lt_game_system();
 		$game_systems = $gs_db->getLt_game_systems();
-
+		
 		$ret = array(array("text"=>"Please Select...", "value"=>0));
         
 		foreach($game_systems as $s){

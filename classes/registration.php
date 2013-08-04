@@ -79,8 +79,13 @@ public function getRegistrationById($id){
 	$event_db = new Event();
 
 	$event_details = $event_db->getEventById($event[0][EVENT_ID]+0);
-	unset($event_details[0][ID]);
-	return array(array_merge($event[0], $event_details[0]));
+	
+	if(is_array($event_details)){
+		unset($event_details[0][ID]);
+		return array(array_merge($event[0], $event_details[0]));
+	} else {
+		return $event_details;
+	}
 }
 
 public function getRegistrationByPersonId($person_id){

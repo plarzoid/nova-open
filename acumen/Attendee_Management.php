@@ -21,7 +21,7 @@ require_once($page->getClassRoot()."person.php");
 $person_db = new Person();
 
 //Form Vars
-$form_action=$_SERVER[PHP_SELF]."?view=Attendee_Management";
+$form_action=$_SERVER[PHP_SELF]."?view=".$view;
 $form_method="post";
 
 //Select user to manage forms

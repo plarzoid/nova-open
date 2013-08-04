@@ -24,7 +24,7 @@ require_once($page->getClassRoot()."x_users_role.php");
 $role_db = new X_users_role();
 
 //Form Vars
-$form_action=$_SERVER[PHP_SELF];
+$form_action=$_SERVER[PHP_SELF]."?view=".$view;
 $form_method="post";
 
 //Select user to manage forms

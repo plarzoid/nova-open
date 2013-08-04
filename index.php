@@ -29,8 +29,8 @@ if($_REQUEST[action]=="logout"){
 
 ************************************************************/
 //Arrays of views based on role
-$user_views = array();
-$admin_views = array("Attendee_Management", "Registration_Management", "User_Management");
+$user_views = array("Events");
+$admin_views = array("Attendee_Management", "Registration_Management", "User_Management", "Events");
 $judge_views = array();
 
 if(Session::isNotLoggedIn()){

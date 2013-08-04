@@ -26,7 +26,7 @@ $event_db = new Event();
 $reg_db = new Registration();
 
 //Form Vars
-$form_action=$_SERVER[PHP_SELF]."?view=Registration_Management";
+$form_action=$_SERVER[PHP_SELF]."?view=".$view;
 $form_method="post";
 
 //Select user to manage forms
@@ -57,12 +57,17 @@ if(is_numeric($selected_person)){
     $regs = $reg_db->getRegistrationByPersonId($selected_person+0);  //needs an int
 
 	//Register delete buttons for them, and handle any deletions
-	foreach($regs as $r){
-		$page->register("delete_".$r[ID], "submit", array("use_post"=>1, "value"=>"Delete"));
+	
+	if(is_array($regs[0])){//wrapper
+		foreach($regs as $r){
+			$page->register("delete_".$r[ID], "submit", array("use_post"=>1, "value"=>"Delete"));
 
-		if($page->submitIsSet("delete_".$r[ID])){
-			$reg_db->deleteRegistration($r[ID]+0);
+			if($page->submitIsSet("delete_".$r[ID])){
+				$reg_db->deleteRegistration($r[ID]+0);
+			}
 		}
+	} else {
+		$regs=false;
 	}
 }
 

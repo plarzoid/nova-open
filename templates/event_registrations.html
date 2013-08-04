@@ -1,0 +1,25 @@
+<table align="center" width="100%">
+	<tr><td align="center">
+		<h1><?=$event[0][NAME]?></h1>
+		<br/>
+		<h3>(<?=count($attendees)?>/<?=$event[0][AVAILABLE_QTY]?>)</h3>
+	</td></tr>
+	<tr><td align="center">
+	<?if(!is_array($registrations)){?>
+	    <h3>No Registrations!</h3>
+	<?} else {?>
+		<table align="center" width="80%" border=1>
+			<tr>
+				<th>Reg ID#</th>
+				<th>Name</th>
+			</tr>
+		<?foreach($attendees as $a){?>
+			<tr>
+				<td><?=$a[REGISTRATION_ID]?></td>
+				<td><?=$a[LAST_NAME]?>, <?=$a[FIRST_NAME]?></td>
+			</tr>
+		<?}?>
+		</table>
+	<?}?>
+	</td></tr>
+</table>
