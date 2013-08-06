@@ -60,7 +60,7 @@
 				<tr>
 					<td><?=$e[NAME]?></td>
 					<td><?=$e[DESCRIPTION]?></td>
-					<td><?=$e[REGISTRATIONS]?>/<?=$e[AVAILABLE_QTY]?></td>
+					<td <?if($e[REGISTRATIONS] > 0){?>bgcolor="#00FF00"> <font color="#000000"><?}else{?>bgcolor="#FF0000"> <font color="#FFFFFF"><?}?><?=$e[REGISTRATIONS]?>/<?=$e[AVAILABLE_QTY]?></font></td>
 					<td><?=date("D H:i", $e[EVENT_START])?></td>
 					<td>$<?=$e[PRICE]?></td>
 					<td><?=$e[NOTE]?></td>
